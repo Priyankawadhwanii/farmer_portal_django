@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farmer Portal</title>
+  <link href="{% static 'css/site.css' %}" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-r from-green-50 via-green-100 to-green-200 font-sans">
+
+  <!-- 🌱 Navbar -->
+  <nav class="bg-green-600 text-white p-4 flex justify-between items-center">
+    <div>
+      <a href="/" class="font-bold text-lg">Farmer Portal</a>
+    </div>
+    <div class="space-x-6 flex items-center">
+      <a href="/" class="hover:underline">Home</a>
+      <a href="/about/" class="hover:underline">About</a>
+      <a href="/dashboard/" class="hover:underline">Dashboard</a>
+      <a href="/contact/" class="hover:underline">Contact</a>
+
+      <!-- Cart Button -->
+      <a href="{% url 'view_cart' %}" class="bg-white text-green-600 px-3 py-1 rounded-lg font-semibold">
+        🛒 Cart ({{ request.session.cart|length }})
+      </a>
+
+      <!-- Auth Links -->
+      {% if request.user.is_authenticated %}
+        <span>Hello, {{ request.user.username }}</span>
+        <form method="POST" action="{% url 'logout' %}" style="display:inline;">
+          {% csrf_token %}
+          <button type="submit" class="ml-2 hover:underline bg-transparent border-none text-white cursor-pointer">
+            Logout
+          </button>
+        </form>
+      {% else %}
+        <a href="{% url 'login' %}" class="ml-2 hover:underline">Login</a>
+        <a href="{% url 'register' %}" class="ml-2 hover:underline">Sign Up</a>
+      {% endif %}
+    </div>
+  </nav>
+
+  {% block content %}
+  {% endblock %}
+
+</body>
+</html>

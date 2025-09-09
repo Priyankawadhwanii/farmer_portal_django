@@ -1,0 +1,39 @@
+{% extends "shop/base.html" %}
+
+{% block content %}
+<section class="p-8">
+  <h2 class="text-2xl font-bold mb-6">Checkout</h2>
+
+  {% if message %}
+    <p class="text-red-600">{{ message }}</p>
+  {% else %}
+    <table class="w-full border-collapse">
+      <thead>
+        <tr class="bg-gray-200">
+          <th class="p-3 text-left">Product</th>
+          <th class="p-3 text-center">Qty</th>
+          <th class="p-3 text-right">Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in cart_items %}
+        <tr>
+          <td class="p-3">{{ item.product.name }}</td>
+          <td class="p-3 text-center">{{ item.qty }}</td>
+          <td class="p-3 text-right">₹{{ item.subtotal }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <h3 class="text-xl font-bold mt-6">Total: ₹{{ total }}</h3>
+
+    <form method="post" action="{% url 'place_order' %}">
+      {% csrf_token %}
+      <button type="submit" class="mt-4 bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700">
+        Place Order
+      </button>
+    </form>
+  {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'shop/base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<h2>Farmer Dashboard</h2>
+<p>Welcome, {{ user.username }}!</p>
+<a href="{% url 'add_product' %}">Add New Product</a>
+<hr>
+<h3>Your Products</h3>
+<ul>
+    {% for product in user.product_set.all %}
+        <li>{{ product.name }} - ₹{{ product.price }}</li>
+    {% empty %}
+        <li>No products yet.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

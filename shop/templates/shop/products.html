@@ -1,0 +1,21 @@
+{% extends "shop/base.html" %}
+
+{% block title %}Products - Farmer Portal{% endblock %}
+
+{% block content %}
+<h1 class="fw-bold mb-4">Our Products</h1>
+<div class="row">
+  <!-- Example static items (replace with DB loop if needed) -->
+  <div class="col-md-3">
+    <div class="card shadow-sm mb-4">
+      <img src="https://via.placeholder.com/150?text=Tomatoes" class="card-img-top">
+      <div class="card-body text-center">
+        <h5 class="card-title">Tomatoes</h5>
+        <p>₹40/kg</p>
+        <a href="#" class="btn btn-success btn-sm">Add to Cart</a>
+      </div>
+    </div>
+  </div>
+  <!-- Add more as needed -->
+</div>
+{% endblock %}
