@@ -1,0 +1,23 @@
+<!-- templates/shop/consumer_dashboard.html -->
+{% extends "shop/base.html" %}
+{% block content %}
+<div class="p-6">
+  <h2 class="text-2xl font-bold mb-4">Consumer Dashboard</h2>
+  <p class="mb-6">Welcome {{ request.user.username }}! Enjoy fresh products from local farmers.</p>
+  
+  <div class="grid md:grid-cols-2 gap-6">
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <h3 class="text-xl font-bold mb-3">🛒 Quick Actions</h3>
+      <ul class="space-y-2">
+        <li><a href="{% url 'home' %}" class="text-green-600 hover:underline">Browse Products</a></li>
+        <li><a href="{% url 'view_cart' %}" class="text-green-600 hover:underline">View Cart ({{ cart_count }})</a></li>
+      </ul>
+    </div>
+    
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <h3 class="text-xl font-bold mb-3">📈 Your Activity</h3>
+      <p class="text-gray-600">Order history and preferences coming soon!</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

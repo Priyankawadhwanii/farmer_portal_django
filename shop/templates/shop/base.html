@@ -15,19 +15,26 @@
       <a href="/" class="font-bold text-lg">Farmer Portal</a>
     </div>
     <div class="space-x-6 flex items-center">
-      <a href="/" class="hover:underline">Home</a>
-      <a href="/about/" class="hover:underline">About</a>
-      <a href="/dashboard/" class="hover:underline">Dashboard</a>
-      <a href="/contact/" class="hover:underline">Contact</a>
+      <a href="{% url 'home' %}" class="hover:underline">Home</a>
+      <a href="{% url 'about' %}" class="hover:underline">About</a>
 
-      <!-- Cart Button -->
+      <!-- Role-aware Dashboard link -->
+      {% if request.user.is_authenticated and user_role == 'farmer' %}
+        <a href="{% url 'farmer_dashboard' %}" class="hover:underline">Dashboard</a>
+      {% elif request.user.is_authenticated and user_role == 'consumer' %}
+        <a href="{% url 'consumer_dashboard' %}" class="hover:underline">Dashboard</a>
+      {% endif %}
+
+      <a href="{% url 'contact' %}" class="hover:underline">Contact</a>
+
+      <!-- Cart Button: cart_count comes from context processor -->
       <a href="{% url 'view_cart' %}" class="bg-white text-green-600 px-3 py-1 rounded-lg font-semibold">
-        🛒 Cart ({{ request.session.cart|length }})
+        🛒 Cart ({{ cart_count }})
       </a>
 
       <!-- Auth Links -->
       {% if request.user.is_authenticated %}
-        <span>Hello, {{ request.user.username }}</span>
+        <span class="ml-4">Hello, {{ request.user.username }}</span>
         <form method="POST" action="{% url 'logout' %}" style="display:inline;">
           {% csrf_token %}
           <button type="submit" class="ml-2 hover:underline bg-transparent border-none text-white cursor-pointer">
@@ -36,7 +43,8 @@
         </form>
       {% else %}
         <a href="{% url 'login' %}" class="ml-2 hover:underline">Login</a>
-        <a href="{% url 'register' %}" class="ml-2 hover:underline">Sign Up</a>
+        <a href="{% url 'farmer_register' %}" class="ml-2 hover:underline">Farmer Sign Up</a>
+        <a href="{% url 'consumer_register' %}" class="ml-2 hover:underline">Consumer Sign Up</a>
       {% endif %}
     </div>
   </nav>

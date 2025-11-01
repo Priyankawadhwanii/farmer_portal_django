@@ -29,12 +29,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Your app
-    'shop',
+    'shop.apps.ShopConfig',
 
     # Tailwind + Live reload
     'tailwind',
     'theme',  # Tailwind app
-    'django_browser_reload',
+    
 ]
 
 MIDDLEWARE = [
@@ -47,7 +47,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     # Live reload
-    'django_browser_reload.middleware.BrowserReloadMiddleware',
 ]
 
 ROOT_URLCONF = 'farmer_portal.urls'
@@ -55,17 +54,19 @@ ROOT_URLCONF = 'farmer_portal.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],  # optional: add a global templates folder
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'shop.context_processors.cart_and_role',  # ✅ ADD THIS LINE
             ],
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'farmer_portal.wsgi.application'
 
@@ -127,3 +128,8 @@ NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 LOGIN_URL = 'login'
 LOGOUT_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = '/'  # or 'home' if you prefer
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
+
